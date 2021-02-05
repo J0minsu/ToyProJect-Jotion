@@ -1,49 +1,34 @@
 package msjo.jotion.zzodeng.Repository;
 
 import msjo.jotion.zzodeng.domain.User;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-//@RunWith(value = SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class UserRepositoryTest {
 
-//
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    @Test
-//    public void name() throws Exception {
-//
-//        assertEquals("hello","hello");
-//    }
-//
-//    @Test
-//    public void save() throws Exception {
-//
-//        User user = new User(1,"msjo","Incheon");
-//
-//        userRepository.delete(user);
-//        assertEquals(0, userRepository.count());
-//
-//        userRepository.save(user);
-//        assertEquals(1, userRepository.count());
-//
-//        Optional<User> findUser = userRepository.findById(user.getId());
-//
-//        assertEquals("msjo", findUser.get().getName());
-//
-//
-//    }
 
+    @Autowired
+    private UserRepository userRepository;
 
+    @Test
+    public void test() throws Exception {
 
+        Optional<User> user = userRepository.findById("tok0419");
+
+        assertEquals(user.get().getName(), "telee");
+
+        System.out.println(user);
+
+    }
 }

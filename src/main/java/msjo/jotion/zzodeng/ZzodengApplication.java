@@ -15,31 +15,29 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class ZzodengApplication {
 
-
-
-    @Autowired
-    MongoDatabaseFactory mongoDatabaseFactory;
+//
+//    @Autowired
+//    MongoDatabaseFactory mongoDatabaseFactory;
 
     public static void main(String[] args) {
         SpringApplication.run(ZzodengApplication.class, args);
+
     }
 
 
-
-
-    @Bean
-    public ApplicationRunner applicationRunner() {
-        return args -> {
-            MongoDatabase mongoDatabase = mongoDatabaseFactory.getMongoDatabase();
-
-            mongoDatabase.getCollection("A.B").insertOne(
-                    new Document()
-                            .append("id", 3)
-                            .append("name", "jslee")
-                            .append("city", "Gyeyang")
-
-            );
-        };
-    }
+//    @Bean
+//    public ApplicationRunner applicationRunner() {
+//        return args -> {
+//            MongoDatabase mongoDatabase = mongoDatabaseFactory.getMongoDatabase();
+//
+//            mongoDatabase.getCollection("users").insertOne(
+//                    new Document()
+//                            .append("_id", "tok0419")
+//                            .append("name", "telee")
+//                            .append("city", "Hongkong")
+//
+//            );
+//        };
+//    }
 
 }

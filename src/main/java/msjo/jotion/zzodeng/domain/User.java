@@ -2,22 +2,26 @@ package msjo.jotion.zzodeng.domain;
 
 
 import lombok.*;
+import java.util.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Document("users")
+
 public class User {
 
     @Id
-    private int id;
+    private String _id;
     private String name;
     private String city;
+
+    private List<Project> projects;
+
+
 }
