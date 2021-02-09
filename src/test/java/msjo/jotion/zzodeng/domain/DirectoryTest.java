@@ -16,5 +16,7 @@ class DirectoryTest {
     @Test
     public void test() {
 
+        Directory directory = new Directory("a", "b");
+        System.out.println(directory);
     }
 }
