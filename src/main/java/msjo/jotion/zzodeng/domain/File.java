@@ -2,22 +2,28 @@ package msjo.jotion.zzodeng.domain;
 
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
+@SuperBuilder
 public class File {
 
     @NotNull(message = "Please write this file's name!")
-    @Max(value = 96, message = "Name of file max length is 96!")
+    @Max(value = 48, message = "Name of file max length is 96!")
     private String name;
-    private String description;
 
-    private Authority authority;
+    @NotNull(message =  "Please describe about this file!")
+    @Builder.Default
+    private String description = "";
+
+    @Builder.Default
+    private Authority authority = Authority.CREW;
+
+
 
 }
