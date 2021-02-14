@@ -43,4 +43,9 @@ public class UserControllerTest {
 
         System.out.println(user);
     }
+
+    @Test
+    public void getTest() throws Exception {
+        System.out.println("{\"message\" : \"" + "aa" + "\"}");
+    }
 }
