@@ -6,7 +6,6 @@ import msjo.jotion.zzodeng.Repository.UserRepository;
 import msjo.jotion.zzodeng.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +20,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+
     @RequestMapping("/")
     String home() {
         return "Hello World!";
@@ -33,24 +33,58 @@ public class UserController {
         return (List<User>) userRepository.findAll();
     }
 
-    @PostMapping(path = "api/user")
+    @GetMapping("/api/users/{userId}")
+    Optional<User> findUser(@PathVariable String userId) {
+
+        Optional<User> user = userRepository.findById(userId);
+
+        //null 일 때 처리 필요
+
+        return user;
+    }
+
+    @PostMapping(path = "/api/users")
     String register(@RequestBody @Valid User user, Errors errors) {
 
-        String errorMessage = "";
+
+        //validation Error 처리
         if(errors.hasErrors()) {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("ERROR_MESSAGE = ");
+            for(FieldError error : errors.getFieldErrors()) {
+                buffer.append(error.getDefaultMessage() + "\n");
+            }
 
-            for(FieldError error : errors.getFieldErrors())
-                errorMessage += error.getDefaultMessage();
-
-            return "{\"message\" : \"" + errorMessage + "\"}";
+            return buffer.toString();
+        }
+        else if(userRepository.findById(user.get_id()).isPresent())
+            return "Id already exist!";
+        else {
+            userRepository.save(user);
+            return "register is success!";
         }
 
-        else if(userRepository.findById(user.get_id()) != null)
-            return "Id is already exist!!!!";
+    }
 
-        userRepository.save(user);
+    @PutMapping(path = "/api/users/{userId}")
+    String editUserInfo(@PathVariable String userId, @RequestBody @Valid User user, Errors errors) {
 
-        return "register is success!";
+        //validation Error 처리
+        if(errors.hasErrors()) {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("ERROR_MESSAGE = ");
+            for(FieldError error : errors.getFieldErrors()) {
+                buffer.append(error.getDefaultMessage() + "\n");
+            }
+
+            return buffer.toString();
+        }
+        else if(!userRepository.findById(user.get_id()).orElse(new User()).equals(userId))
+            return "you cannot change ID!";
+        else {
+            userRepository.save(user);
+            return "your information editing is success!";
+        }
     }
 
 

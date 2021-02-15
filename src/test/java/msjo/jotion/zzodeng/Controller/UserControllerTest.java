@@ -46,6 +46,11 @@ public class UserControllerTest {
 
     @Test
     public void getTest() throws Exception {
-        System.out.println("{\"message\" : \"" + "aa" + "\"}");
+
+        Optional<User> user = userRepository.findById("nhchoi");
+
+        User user1 = user.orElse(null);
+
+        System.out.println(user1);
     }
 }
